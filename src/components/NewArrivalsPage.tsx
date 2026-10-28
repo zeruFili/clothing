@@ -14,17 +14,17 @@ export const NewArrivalsPage: React.FC = () => {
   const displayList = newArrivals.length > 0 ? newArrivals : items.slice(0, 8);
 
   return (
-    <div className="space-y-8 pb-16">
+    <div className="space-y-6 sm:space-y-8 pb-16">
       {/* Page Header Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-[#0e3027] text-white rounded-3xl p-6 sm:p-10 md:p-12 shadow-xl border border-emerald-800/40">
-        <div className="relative z-10 max-w-3xl space-y-4">
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-[#0e3027] text-white rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-xl border border-emerald-800/40">
+        <div className="relative z-10 max-w-3xl space-y-3 sm:space-y-4">
           <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300 bg-amber-400/15 px-3 py-1 rounded-full border border-amber-400/30 inline-block backdrop-blur-xs">
             ✨ Haute Nouveautés 2026
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
             New Arrivals & Haute Additions
           </h1>
-          <p className="text-xs md:text-sm text-emerald-100/80 max-w-2xl leading-relaxed font-light">
+          <p className="text-xs sm:text-sm text-emerald-100/80 max-w-2xl leading-relaxed font-light">
             Explore our latest sartorial silhouettes, freshly tailored double-faced cashmere coats, fluid mulberry silk evening gowns, and hand-hammered accessories direct from European workshops.
           </p>
         </div>
@@ -34,17 +34,17 @@ export const NewArrivalsPage: React.FC = () => {
       </div>
 
       {/* Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-semibold text-gray-500 pb-3 border-b border-gray-200 gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-semibold text-gray-500 pb-2 border-b border-gray-200 gap-1.5">
         <span>
           Showing <strong className="text-gray-900">{displayList.length}</strong> new season additions
         </span>
-        <Link to="/" className="text-[#123d32] hover:underline font-bold">
+        <Link to="/" className="text-[#123d32] hover:underline font-bold self-start sm:self-auto">
           ← Return to Full Shop Catalog
         </Link>
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
         {displayList.map((item) => (
           <ProductCard key={item.id} item={item} />
         ))}

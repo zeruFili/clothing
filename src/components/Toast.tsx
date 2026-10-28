@@ -8,7 +8,7 @@ export const Toast: React.FC = () => {
   if (!toast) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 max-w-sm bg-gray-900 text-white rounded-2xl p-4 shadow-2xl border border-gray-800 flex items-start gap-3 animate-scale-up">
+    <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 left-4 sm:left-auto max-w-sm z-50 bg-gray-900 text-white rounded-2xl p-3.5 sm:p-4 shadow-2xl border border-gray-800 flex items-start gap-3 animate-scale-up">
       <div
         className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 ${
           toast.type === "info"

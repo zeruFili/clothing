@@ -60,27 +60,27 @@ export const DiscountPage: React.FC = () => {
   }, [deals, selectedCategory, selectedTier, searchQuery, sortKey]);
 
   return (
-    <div className="space-y-8 pb-16">
-      {/* Deals Hero Banner (Directly inspired by Doqa Rental's DiscountPage banner) */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-rose-950 text-white rounded-3xl p-6 sm:p-10 md:p-12 shadow-xl border border-rose-900/40">
-        <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-600/30 border border-rose-400/40 text-rose-200 text-xs font-black uppercase tracking-wider">
+    <div className="space-y-6 sm:space-y-8 pb-16">
+      {/* Deals Hero Banner */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-rose-950 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-xl border border-rose-900/40">
+        <div className="relative z-10 max-w-3xl space-y-3 sm:space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-rose-600/30 border border-rose-400/40 text-rose-200 text-[10px] sm:text-xs font-black uppercase tracking-wider flex-wrap">
             <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping" />
             <span>DOQA ATELIER • DEALS & SPECIAL OFFERS</span>
             <span className="hidden sm:inline">•</span>
             <span className="hidden sm:inline">UP TO 25% OFF ARCHIVAL PIECES</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
             Exclusive Deals & Archival Specials
           </h1>
 
-          <p className="text-xs md:text-sm text-rose-100/80 max-w-2xl leading-relaxed font-light">
+          <p className="text-xs sm:text-sm text-rose-100/80 max-w-2xl leading-relaxed font-light">
             Limited-inventory bespoke tuxedos, bias-cut silk gowns, and structured crepe jackets available at private seasonal pricing. All pieces include full luxury packaging and complimentary doorstep returns.
           </p>
 
           {/* Quick discount tier filters */}
-          <div className="flex flex-wrap items-center gap-2 pt-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
             <button
               onClick={() => setSelectedTier("All")}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
@@ -119,16 +119,16 @@ export const DiscountPage: React.FC = () => {
       </div>
 
       {/* Filter and Control Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-2xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         {/* Category selection */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none touch-pan-x">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-colors shrink-0 ${
                 selectedCategory === cat
-                  ? "bg-[#123d32] text-white"
+                  ? "bg-[#123d32] text-white shadow-xs"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
@@ -138,12 +138,12 @@ export const DiscountPage: React.FC = () => {
         </div>
 
         {/* Sort */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500 font-semibold">Sort:</span>
+        <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100">
+          <span className="text-xs text-gray-500 font-semibold shrink-0">Sort Deals:</span>
           <select
             value={sortKey}
             onChange={(e) => setSortKey(e.target.value as any)}
-            className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-800"
+            className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-800 focus:outline-none cursor-pointer"
           >
             <option value="discount-desc">Highest Discount %</option>
             <option value="price-asc">Price: Low to High</option>
@@ -152,17 +152,18 @@ export const DiscountPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Grid Results */}
-      <div className="flex items-center justify-between text-xs font-semibold text-gray-500 pb-2 border-b border-gray-200">
+      {/* Grid Results Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-semibold text-gray-500 pb-2 border-b border-gray-200 gap-1.5">
         <span>
           Showing <strong className="text-gray-900">{filteredDeals.length}</strong> special offers
         </span>
-        <Link to="/" className="text-[#123d32] hover:underline font-bold">
+        <Link to="/" className="text-[#123d32] hover:underline font-bold self-start sm:self-auto">
           ← Return to Full Shop Catalog
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {/* Product Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
         {filteredDeals.map((item) => (
           <ProductCard key={item.id} item={item} />
         ))}

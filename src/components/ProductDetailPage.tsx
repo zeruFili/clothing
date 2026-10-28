@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 import Icon from "./Icons";
 import ProductCard from "./ProductCard";
@@ -7,7 +7,6 @@ import { ColorSwatch } from "../types";
 
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const {
     items,
     addToCart,
@@ -30,11 +29,11 @@ export const ProductDetailPage: React.FC = () => {
 
   if (!item) {
     return (
-      <div className="py-24 text-center space-y-4">
+      <div className="py-20 text-center space-y-4 px-4">
         <div className="w-16 h-16 bg-gray-100 text-gray-400 rounded-2xl flex items-center justify-center mx-auto">
           <Icon name="alert" size={32} />
         </div>
-        <h2 className="text-2xl font-black font-display text-gray-900">
+        <h2 className="text-xl sm:text-2xl font-black font-display text-gray-900">
           Garment Not Found
         </h2>
         <p className="text-xs text-gray-500 max-w-sm mx-auto">
@@ -68,39 +67,35 @@ export const ProductDetailPage: React.FC = () => {
     addToCart(item, currentSize, currentColor, quantity);
   };
 
-  const handleBuyNow = () => {
-    if (!isAvailable) return;
-    addToCart(item, currentSize, currentColor, quantity);
-    // User is automatically opened into the CartDrawer with items ready to check out
-  };
-
   return (
-    <div className="space-y-12 pb-20">
+    <div className="space-y-8 sm:space-y-12 pb-20">
       {/* Breadcrumb Navigation */}
       <nav
-        className="flex items-center gap-2 text-xs text-gray-500 font-semibold"
+        className="flex items-center gap-1.5 sm:gap-2 text-xs text-gray-500 font-semibold overflow-x-auto whitespace-nowrap pb-1 scrollbar-none"
         aria-label="Breadcrumb"
       >
-        <Link to="/" className="hover:text-emerald-950 transition-colors">
+        <Link to="/" className="hover:text-emerald-950 transition-colors shrink-0">
           Home
         </Link>
-        <span>/</span>
+        <span className="shrink-0">/</span>
         <Link
           to={`/?cat=${encodeURIComponent(item.category)}`}
-          className="hover:text-emerald-950 transition-colors truncate"
+          className="hover:text-emerald-950 transition-colors shrink-0 max-w-[150px] sm:max-w-none truncate"
         >
           {item.category}
         </Link>
-        <span>/</span>
-        <span className="text-gray-900 font-bold truncate">{item.name}</span>
+        <span className="shrink-0">/</span>
+        <span className="text-gray-900 font-bold shrink-0 max-w-[180px] sm:max-w-none truncate">
+          {item.name}
+        </span>
       </nav>
 
       {/* Main Dual-Column Showcase */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-14 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-14 items-start">
         {/* Left Column: Gallery & Boutique Summary */}
-        <div className="space-y-5">
+        <div className="space-y-4 sm:space-y-5">
           {/* Main Visual Display */}
-          <div className="relative aspect-3/4 rounded-3xl overflow-hidden bg-gray-100 border border-gray-200 shadow-lg group">
+          <div className="relative aspect-3/4 rounded-2xl sm:rounded-3xl overflow-hidden bg-gray-100 border border-gray-200 shadow-md group">
             <img
               src={galleryImages[activeImageIdx]}
               alt={item.name}
@@ -108,21 +103,21 @@ export const ProductDetailPage: React.FC = () => {
             />
 
             {/* Badges on Gallery */}
-            <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
-              <span className="px-3.5 py-1 bg-white/95 backdrop-blur-xs font-bold text-xs uppercase tracking-wider text-gray-900 rounded-full border border-gray-200 shadow-xs self-start">
+            <div className="absolute top-3 sm:top-4 left-3 sm:left-4 flex flex-col gap-1.5 sm:gap-2 z-10 pointer-events-none">
+              <span className="px-2.5 sm:px-3.5 py-0.5 sm:py-1 bg-white/95 backdrop-blur-xs font-bold text-[10px] sm:text-xs uppercase tracking-wider text-gray-900 rounded-full border border-gray-200 shadow-xs self-start">
                 {item.category}
               </span>
               {item.isSale && item.discountPercentage && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-rose-600 text-white font-black text-xs uppercase tracking-wider rounded-full shadow-md animate-pulse border border-rose-500/80 self-start">
-                  <Icon name="tag" size={12} className="text-amber-300" />
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 bg-rose-600 text-white font-black text-[10px] sm:text-xs uppercase tracking-wider rounded-full shadow-md animate-pulse border border-rose-500/80 self-start">
+                  <Icon name="tag" size={11} className="text-amber-300" />
                   <span>SAVE {item.discountPercentage}%</span>
                 </span>
               )}
             </div>
 
-            <div className="absolute top-4 right-4 z-10">
+            <div className="absolute top-3 sm:top-4 right-3 sm:top-4 z-10 pointer-events-none">
               <span
-                className={`text-xs font-extrabold uppercase px-3 py-1 rounded-full border shadow-sm ${
+                className={`text-[10px] sm:text-xs font-extrabold uppercase px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border shadow-sm ${
                   isAvailable
                     ? isLowStock
                       ? "bg-amber-50 text-amber-800 border-amber-200"
@@ -132,26 +127,26 @@ export const ProductDetailPage: React.FC = () => {
               >
                 {isAvailable
                   ? isLowStock
-                    ? `Only ${item.stockQuantity} Left in Stock`
-                    : "In Stock & Ready to Ship"
-                  : "Currently Sold Out"}
+                    ? `Only ${item.stockQuantity} Left`
+                    : "In Stock"
+                  : "Sold Out"}
               </span>
             </div>
 
             {/* Zoom / Full Preview indicator */}
-            <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">
+            <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg">
               {activeImageIdx + 1} / {galleryImages.length}
             </div>
           </div>
 
           {/* Thumbnail Gallery Strip */}
           {galleryImages.length > 1 && (
-            <div className="flex items-center gap-3 overflow-x-auto pb-1">
+            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-1 scrollbar-none touch-pan-x">
               {galleryImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImageIdx(idx)}
-                  className={`relative w-20 sm:w-24 aspect-3/4 rounded-2xl overflow-hidden border-2 transition-all shrink-0 ${
+                  className={`relative w-18 sm:w-22 aspect-3/4 rounded-xl sm:rounded-2xl overflow-hidden border-2 transition-all shrink-0 ${
                     activeImageIdx === idx
                       ? "border-[#123d32] ring-2 ring-[#123d32]/20 scale-102"
                       : "border-gray-200 hover:border-gray-400 opacity-75 hover:opacity-100"
@@ -163,53 +158,53 @@ export const ProductDetailPage: React.FC = () => {
             </div>
           )}
 
-          {/* Boutique Origin & Craftsmanship Summary Box (Doqa Signature) */}
-          <div className="p-5 bg-white rounded-3xl border border-gray-200 shadow-2xs grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
+          {/* Boutique Origin & Craftsmanship Summary Box */}
+          <div className="p-4 sm:p-5 bg-white rounded-2xl sm:rounded-3xl border border-gray-200 shadow-2xs grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 text-xs">
             <div>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+              <span className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
                 Origin Flagship
               </span>
-              <strong className="text-gray-900 block truncate mt-0.5">
+              <strong className="text-gray-900 block truncate mt-0.5 text-xs sm:text-sm">
                 {item.boutiqueLocation}
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+              <span className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
                 Certificate
               </span>
-              <strong className="text-gray-900 block mt-0.5">
+              <strong className="text-gray-900 block mt-0.5 text-xs sm:text-sm">
                 Haute Authenticity
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+              <span className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
                 Fabric Grade
               </span>
-              <strong className="text-emerald-800 font-bold block mt-0.5 truncate">
+              <strong className="text-emerald-800 font-bold block mt-0.5 truncate text-xs sm:text-sm">
                 {item.fabric.split(" ")[0]} 6A Certified
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+              <span className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
                 Atelier SKU
               </span>
-              <strong className="text-gray-700 block mt-0.5 font-mono text-[11px]">
+              <strong className="text-gray-700 block mt-0.5 font-mono text-[10px] sm:text-[11px]">
                 {item.code}
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+              <span className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
                 Packaging
               </span>
-              <strong className="text-gray-900 block mt-0.5">
+              <strong className="text-gray-900 block mt-0.5 text-xs sm:text-sm">
                 Wooden Gift Box
               </strong>
             </div>
             <div>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+              <span className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
                 Dispatch Valet
               </span>
-              <strong className="text-emerald-800 font-semibold block mt-0.5">
+              <strong className="text-emerald-800 font-semibold block mt-0.5 text-xs sm:text-sm">
                 Same-Day Available
               </strong>
             </div>
@@ -217,15 +212,15 @@ export const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* Right Column: Pricing, Options & Purchasing Flow */}
-        <div className="space-y-6">
+        <div className="space-y-5 sm:space-y-6">
           {/* Header Info */}
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 uppercase tracking-wider flex-wrap">
               <span>{item.designer}</span>
               <span>•</span>
               <span>{item.silhouette}</span>
               <span>•</span>
-              <span className="font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded text-[10px]">
+              <span className="font-mono text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded text-[10px]">
                 {item.code}
               </span>
             </div>
@@ -238,69 +233,69 @@ export const ProductDetailPage: React.FC = () => {
               {item.subtitle}
             </p>
 
-            <div className="flex items-center gap-3 pt-1">
-              <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
-                <Icon name="star" size={15} fill="currentColor" />
+            <div className="flex items-center gap-2 sm:gap-3 pt-1 flex-wrap text-xs">
+              <div className="flex items-center gap-1 text-amber-500 font-bold">
+                <Icon name="star" size={14} fill="currentColor" />
                 <span>{item.rating}</span>
               </div>
               <span className="text-gray-300">•</span>
-              <span className="text-xs text-gray-500 underline cursor-pointer">
-                {item.reviewCount} customer reviews
+              <span className="text-gray-500 underline cursor-pointer">
+                {item.reviewCount} reviews
               </span>
               <span className="text-gray-300">•</span>
-              <span className="text-xs text-emerald-800 font-semibold">
-                Complimentary Bespoke Alterations
+              <span className="text-emerald-800 font-semibold">
+                Complimentary Alterations
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed pt-2">
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed pt-1">
               {item.description}
             </p>
           </div>
 
           {/* Purchasing Box */}
-          <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-2xs space-y-6">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200 p-4 sm:p-6 shadow-2xs space-y-5 sm:space-y-6">
             {/* Price Showcase */}
-            <div className="p-4 bg-emerald-50/70 border border-emerald-100 rounded-2xl flex items-baseline justify-between flex-wrap gap-2">
-              <div className="flex items-baseline gap-3">
-                <strong className="text-3xl sm:text-4xl font-black text-[#123d32] font-display">
+            <div className="p-3.5 sm:p-4 bg-emerald-50/70 border border-emerald-100 rounded-xl sm:rounded-2xl flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+              <div className="flex items-baseline gap-2.5 sm:gap-3 flex-wrap">
+                <strong className="text-2xl sm:text-4xl font-black text-[#123d32] font-display">
                   {formatPrice(item.price)}
                 </strong>
                 {item.compareAtPrice && (
-                  <span className="text-base sm:text-lg font-semibold text-gray-400 line-through">
+                  <span className="text-sm sm:text-lg font-semibold text-gray-400 line-through">
                     {formatPrice(item.compareAtPrice)}
                   </span>
                 )}
                 {item.isSale && (
-                  <span className="text-xs font-bold text-rose-600 bg-rose-100 px-2.5 py-1 rounded-full uppercase">
+                  <span className="text-xs font-bold text-rose-600 bg-rose-100 px-2 py-0.5 rounded-full uppercase">
                     Save {item.discountPercentage}%
                   </span>
                 )}
               </div>
 
-              <div className="text-right">
-                <span className="text-[10px] text-emerald-900 font-bold uppercase tracking-wider block">
-                  Delivery
+              <div className="text-left sm:text-right">
+                <span className="text-[9px] sm:text-[10px] text-emerald-900 font-bold uppercase tracking-wider block">
+                  Delivery Valet
                 </span>
                 <span className="text-xs font-bold text-emerald-800">
-                  Free Express Shipping
+                  Free Express Courier
                 </span>
               </div>
             </div>
 
             {/* Installment note */}
-            <p className="text-xs text-gray-500 flex items-center gap-1.5">
+            <p className="text-xs text-gray-500 flex items-center gap-1.5 flex-wrap">
               <span>💳</span>
               <span>
-                or 4 interest-free payments of{" "}
+                or 4 payments of{" "}
                 <strong className="text-gray-800">{formatPrice(Math.round(item.price / 4))}</strong>{" "}
-                with Klarna or Afterpay
+                with Klarna
               </span>
             </p>
 
             {/* Size Selector */}
             <div className="space-y-2 pt-2 border-t border-gray-100">
-              <div className="flex items-center justify-between text-xs">
+              <div className="flex items-center justify-between text-xs flex-wrap gap-1">
                 <span className="font-bold text-gray-900">
                   Select Size: <strong className="text-emerald-900">{currentSize}</strong>
                 </span>
@@ -309,16 +304,16 @@ export const ProductDetailPage: React.FC = () => {
                   className="text-emerald-800 font-bold flex items-center gap-1 hover:underline text-xs"
                 >
                   <Icon name="ruler" size={13} />
-                  <span>Size & Measurement Guide</span>
+                  <span>Size & Fit Guide</span>
                 </button>
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {item.sizes.map((sz) => (
                   <button
                     key={sz}
                     onClick={() => setSelectedSize(sz)}
-                    className={`min-w-12 h-10 px-3 rounded-xl text-xs font-extrabold border transition-all ${
+                    className={`min-w-11 sm:min-w-12 h-9 sm:h-10 px-2.5 sm:px-3 rounded-xl text-xs font-extrabold border transition-all ${
                       currentSize === sz
                         ? "bg-[#123d32] text-white border-[#123d32] shadow-sm scale-102"
                         : "bg-white text-gray-700 border-gray-200 hover:border-gray-400"
@@ -340,7 +335,7 @@ export const ProductDetailPage: React.FC = () => {
                   <button
                     key={col.name}
                     onClick={() => setSelectedColor(col)}
-                    className={`w-8 h-8 rounded-full border-2 transition-transform ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-transform ${
                       currentColor.name === col.name
                         ? "border-[#123d32] ring-2 ring-[#123d32]/30 scale-110"
                         : "border-gray-300 hover:scale-105"
@@ -358,46 +353,46 @@ export const ProductDetailPage: React.FC = () => {
                 Quantity
               </span>
               <div className="flex items-center gap-3">
-                <div className="flex items-center bg-gray-100 border border-gray-200 rounded-xl px-3 py-1.5">
+                <div className="flex items-center bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1">
                   <button
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="text-gray-600 hover:text-gray-950 font-bold px-2"
+                    className="text-gray-600 hover:text-gray-950 font-bold px-2 text-sm"
                   >
                     -
                   </button>
-                  <span className="text-xs font-bold text-gray-900 w-8 text-center">
+                  <span className="text-xs font-bold text-gray-900 w-7 text-center">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity((q) => Math.min(item.stockQuantity, q + 1))}
-                    className="text-gray-600 hover:text-gray-950 font-bold px-2"
+                    className="text-gray-600 hover:text-gray-950 font-bold px-2 text-sm"
                   >
                     +
                   </button>
                 </div>
                 <span className="text-[11px] text-gray-500">
-                  ({item.stockQuantity} pieces available in atelier inventory)
+                  ({item.stockQuantity} pieces in atelier)
                 </span>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="space-y-3 pt-2">
+            <div className="space-y-2.5 sm:space-y-3 pt-2">
               <button
                 disabled={!isAvailable}
                 onClick={handleAddToCart}
-                className="w-full py-4 bg-[#123d32] hover:bg-[#0e2c24] disabled:bg-gray-300 text-white rounded-2xl text-sm font-black transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 active:scale-98"
+                className="w-full py-3.5 sm:py-4 bg-[#123d32] hover:bg-[#0e2c24] disabled:bg-gray-300 text-white rounded-xl sm:rounded-2xl text-xs sm:text-sm font-black transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-98"
               >
-                <Icon name="bag" size={18} className="text-amber-300" />
+                <Icon name="bag" size={17} className="text-amber-300" />
                 <span>
                   Add to Shopping Bag • {formatPrice(item.price * quantity)}
                 </span>
               </button>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={() => toggleWishlist(item.id)}
-                  className={`flex-1 py-3 rounded-2xl border text-xs font-bold flex items-center justify-center gap-2 transition-colors ${
+                  className={`flex-1 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-colors ${
                     isWishlisted
                       ? "bg-rose-50 border-rose-200 text-rose-700"
                       : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
@@ -416,7 +411,7 @@ export const ProductDetailPage: React.FC = () => {
                     navigator.clipboard.writeText(window.location.href);
                     alert("Piece link copied to clipboard!");
                   }}
-                  className="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-2xl text-xs font-bold transition-colors"
+                  className="px-4 py-2.5 sm:py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl sm:rounded-2xl text-xs font-bold transition-colors"
                   title="Share link"
                 >
                   Share
@@ -425,27 +420,27 @@ export const ProductDetailPage: React.FC = () => {
             </div>
 
             {/* Guarantees */}
-            <div className="pt-4 border-t border-gray-100 grid grid-cols-2 gap-3 text-xs text-gray-600">
+            <div className="pt-3 sm:pt-4 border-t border-gray-100 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-600">
               <div className="flex items-start gap-2">
                 <Icon name="truck" size={16} className="text-emerald-800 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-gray-900 block">Complimentary Shipping</strong>
-                  <span>Fast express courier with tracking</span>
+                  <span className="text-[11px] text-gray-500">Fast courier with tracking</span>
                 </div>
               </div>
               <div className="flex items-start gap-2">
                 <Icon name="shield" size={16} className="text-emerald-800 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-gray-900 block">30-Day Returns</strong>
-                  <span>Effortless doorstep return pickup</span>
+                  <span className="text-[11px] text-gray-500">Effortless doorstep return pickup</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Accordion Specification Tabs */}
-          <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-2xs">
-            <div className="flex border-b border-gray-200">
+          {/* Specification Tabs (Scrollable on small mobile screens) */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200 overflow-hidden shadow-2xs">
+            <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-none touch-pan-x">
               {[
                 { id: "fabric", label: "Details & Care" },
                 { id: "fit", label: "Fit & Measurements" },
@@ -455,7 +450,7 @@ export const ProductDetailPage: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex-1 py-3 text-xs font-bold transition-colors border-b-2 ${
+                  className={`min-w-[120px] sm:min-w-0 sm:flex-1 py-3 px-3 text-xs font-bold transition-colors border-b-2 whitespace-nowrap text-center ${
                     activeTab === tab.id
                       ? "border-[#123d32] text-[#123d32] bg-emerald-50/40"
                       : "border-transparent text-gray-500 hover:text-gray-900"
@@ -466,7 +461,7 @@ export const ProductDetailPage: React.FC = () => {
               ))}
             </div>
 
-            <div className="p-5 text-xs text-gray-600 leading-relaxed space-y-3">
+            <div className="p-4 sm:p-5 text-xs text-gray-600 leading-relaxed space-y-3">
               {activeTab === "fabric" && (
                 <div className="space-y-2">
                   <p>
@@ -531,26 +526,26 @@ export const ProductDetailPage: React.FC = () => {
 
       {/* Complete the Look / Related Garments */}
       {relatedItems.length > 0 && (
-        <section className="space-y-6 pt-8 border-t border-gray-200">
-          <div className="flex items-center justify-between">
+        <section className="space-y-5 sm:space-y-6 pt-6 sm:pt-8 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 block">
                 Curated Pairings
               </span>
-              <h2 className="text-2xl font-black font-display text-gray-950">
+              <h2 className="text-xl sm:text-2xl font-black font-display text-gray-950">
                 Complete the Ensemble
               </h2>
             </div>
             <Link
               to={`/?cat=${encodeURIComponent(item.category)}`}
-              className="text-xs font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1"
+              className="text-xs font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1 self-start sm:self-auto"
             >
               <span>View full collection</span>
               <Icon name="arrowRight" size={13} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {relatedItems.map((rel) => (
               <ProductCard key={rel.id} item={rel} />
             ))}
