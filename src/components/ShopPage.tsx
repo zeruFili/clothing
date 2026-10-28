@@ -173,7 +173,7 @@ export const ShopPage: React.FC = () => {
 
   return (
     <div className="space-y-8 pb-16">
-      {/* Hero Showcase Section */}
+      {/* Hero Showcase Section (Directly adapted from Doqa Rental's visual language) */}
       <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-[#0e3027] text-white p-6 sm:p-10 md:p-14 shadow-2xl border border-emerald-800/40">
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider backdrop-blur-xs">
@@ -276,7 +276,7 @@ export const ShopPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Main Catalog Layout */}
+      {/* Main Catalog Layout: Sidebar + Product Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
         {/* Left Filter Sidebar */}
         <aside
@@ -443,7 +443,7 @@ export const ShopPage: React.FC = () => {
 
         {/* Right Main Product Grid Area */}
         <div className="lg:col-span-3 space-y-6">
-          {/* Top Controls Toolbar */}
+          {/* Top Controls Toolbar: Search, Count, Sort, View Toggle */}
           <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-2xs flex flex-wrap items-center justify-between gap-3">
             {/* Search Input */}
             <div className="relative flex-1 min-w-[200px] sm:min-w-[280px]">

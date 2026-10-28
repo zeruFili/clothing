@@ -37,12 +37,9 @@ export const Header: React.FC = () => {
   ];
 
   const navLinks = [
-    { label: "Shop All", path: "/" },
-    { label: "Evening & Galas", path: "/?cat=Evening+Gowns+%26+Gala+Dresses" },
-    { label: "Suits & Tuxedos", path: "/?cat=Tailored+Suits+%26+Tuxedos" },
-    { label: "Cashmere & Coats", path: "/?cat=Cashmere+Coats+%26+Capes" },
-    { label: "New Arrivals", path: "/?filter=new" },
-    { label: "Sale", path: "/?filter=sale", isSale: true },
+    { label: "Shop Catalog", path: "/" },
+    { label: "New Arrivals", path: "/new-arrivals" },
+    { label: "Deals & Specials", path: "/discount", isSpecial: true },
   ];
 
   const searchResults = searchQuery.trim()
@@ -105,23 +102,25 @@ export const Header: React.FC = () => {
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks.map((link) => {
             const isActive =
-              location.pathname === link.path ||
-              (link.path.includes("?") &&
-                location.search.includes(link.path.split("?")[1]));
+              link.path === "/"
+                ? location.pathname === "/"
+                : location.pathname.startsWith(link.path);
 
             return (
               <Link
                 key={link.label}
                 to={link.path}
                 className={`text-sm font-bold tracking-tight transition-all py-1 border-b-2 flex items-center gap-1.5 ${
-                  link.isSale
-                    ? "text-rose-600 border-rose-500 font-black hover:text-rose-700"
+                  link.isSpecial
+                    ? isActive
+                      ? "text-rose-600 border-rose-600 font-black"
+                      : "text-rose-600 border-transparent hover:border-rose-300 font-black"
                     : isActive
                     ? "text-[#123d32] border-[#123d32]"
                     : "text-gray-600 border-transparent hover:text-gray-950 hover:border-gray-300"
                 }`}
               >
-                {link.isSale && <Icon name="tag" size={13} className="text-rose-600" />}
+                {link.isSpecial && <Icon name="tag" size={13} className="text-rose-600" />}
                 {link.label}
               </Link>
             );
@@ -323,9 +322,9 @@ export const Header: React.FC = () => {
                 className="px-3 py-2 rounded-xl text-sm font-bold text-gray-800 hover:bg-emerald-50 hover:text-emerald-950 transition-colors flex items-center justify-between"
               >
                 <span>{link.label}</span>
-                {link.isSale && (
+                {link.isSpecial && (
                   <span className="px-2 py-0.5 rounded-md bg-rose-100 text-rose-700 text-[10px] font-black uppercase">
-                    Sale
+                    Specials
                   </span>
                 )}
               </Link>

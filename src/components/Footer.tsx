@@ -5,7 +5,7 @@ import Icon from "./Icons";
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-[#123d32] text-white border-t border-emerald-900/60 mt-20">
-      {/* Upper Assurance Banner */}
+      {/* Upper Assurance Banner (Adapted directly from Doqa Rental's 3-pillar banner) */}
       <div className="border-b border-white/10">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex items-center gap-4">

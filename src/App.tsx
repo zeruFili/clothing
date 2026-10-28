@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ShopPage from "./components/ShopPage";
 import ProductDetailPage from "./components/ProductDetailPage";
+import NewArrivalsPage from "./components/NewArrivalsPage";
+import DiscountPage from "./components/DiscountPage";
 import QuickViewModal from "./components/QuickViewModal";
 import CartDrawer from "./components/CartDrawer";
 import WishlistDrawer from "./components/WishlistDrawer";
@@ -32,6 +34,9 @@ export function App() {
           <main className="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
             <Routes>
               <Route path="/" element={<ShopPage />} />
+              <Route path="/new-arrivals" element={<NewArrivalsPage />} />
+              <Route path="/discount" element={<DiscountPage />} />
+              <Route path="/deals" element={<DiscountPage />} />
               <Route path="/product/:id" element={<ProductDetailPage />} />
               <Route path="*" element={<ShopPage />} />
             </Routes>

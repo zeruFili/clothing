@@ -68,6 +68,12 @@ export const ProductDetailPage: React.FC = () => {
     addToCart(item, currentSize, currentColor, quantity);
   };
 
+  const handleBuyNow = () => {
+    if (!isAvailable) return;
+    addToCart(item, currentSize, currentColor, quantity);
+    // User is automatically opened into the CartDrawer with items ready to check out
+  };
+
   return (
     <div className="space-y-12 pb-20">
       {/* Breadcrumb Navigation */}
@@ -157,7 +163,7 @@ export const ProductDetailPage: React.FC = () => {
             </div>
           )}
 
-          {/* Boutique Origin & Craftsmanship Summary Box */}
+          {/* Boutique Origin & Craftsmanship Summary Box (Doqa Signature) */}
           <div className="p-5 bg-white rounded-3xl border border-gray-200 shadow-2xs grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
             <div>
               <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
