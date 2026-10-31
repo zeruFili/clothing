@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 import Icon from "./Icons";
@@ -56,15 +57,20 @@ export const CartDrawer: React.FC = () => {
     }, 1200);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-xs animate-fade-in flex justify-end">
-      {/* Background click to close */}
-      <div className="fixed inset-0" onClick={closeCart} />
+  return typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[9999] overflow-hidden bg-black/60 backdrop-blur-xs animate-fade-in flex justify-end"
+          role="dialog"
+          aria-modal="true"
+        >
+          {/* Background click to close */}
+          <div className="fixed inset-0" onClick={closeCart} />
 
-      <div
-        className="relative w-full max-w-md sm:max-w-lg bg-white h-full shadow-2xl flex flex-col justify-between animate-drawer-in z-10"
-        onClick={(e) => e.stopPropagation()}
-      >
+          <div
+            className="relative w-full max-w-md sm:max-w-lg bg-white h-full shadow-2xl flex flex-col justify-between animate-drawer-in z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-gray-200 flex items-center justify-between bg-white shrink-0">
           <div className="flex items-center gap-2.5">
@@ -291,9 +297,11 @@ export const CartDrawer: React.FC = () => {
             </div>
           </div>
         )}
-      </div>
-    </div>
-  );
+        </div>
+      </div>,
+      document.body
+    )
+  : null;
 };
 
 export default CartDrawer;

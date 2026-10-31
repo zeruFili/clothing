@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 import Icon from "./Icons";
@@ -22,8 +23,13 @@ export const QuickViewModal: React.FC = () => {
     closeQuickView();
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+  return typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+        >
       <div
         className="relative w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-gray-200 animate-scale-up max-h-[92vh] flex flex-col md:flex-row overflow-y-auto md:overflow-hidden"
         onClick={(e) => e.stopPropagation()}
@@ -179,9 +185,11 @@ export const QuickViewModal: React.FC = () => {
             </Link>
           </div>
         </div>
-      </div>
-    </div>
-  );
+        </div>
+      </div>,
+      document.body
+    )
+  : null;
 };
 
 export default QuickViewModal;

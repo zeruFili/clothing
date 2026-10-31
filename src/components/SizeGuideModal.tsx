@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { useApp } from "../context/AppContext";
 import Icon from "./Icons";
 
@@ -8,8 +9,13 @@ export const SizeGuideModal: React.FC = () => {
 
   if (!isSizeGuideOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+  return typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+        >
       <div
         className="relative w-full max-w-2xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-gray-200 animate-scale-up p-5 sm:p-8 space-y-5 sm:space-y-6 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
@@ -211,9 +217,11 @@ export const SizeGuideModal: React.FC = () => {
             Understood & Return to Garment
           </button>
         </div>
-      </div>
-    </div>
-  );
+        </div>
+      </div>,
+      document.body
+    )
+  : null;
 };
 
 export default SizeGuideModal;

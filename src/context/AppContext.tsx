@@ -48,6 +48,11 @@ interface AppContextType {
   updateCartQuantity: (index: number, delta: number) => void;
   removeFromCart: (index: number) => void;
   clearCart: () => void;
+  maxPrice: number;
+  setMaxPrice: (price: number) => void;
+  selectedMaterial: string;
+  setSelectedMaterial: (material: string) => void;
+  resetGlobalFilters: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -106,6 +111,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currency, setCurrency] = useState<Currency>("USD");
   const [currentUser, setCurrentUser] = useState<User>(usersList.vip_client);
   const [toast, setToast] = useState<ToastState | null>(null);
+  const [maxPrice, setMaxPrice] = useState<number>(2000);
+  const [selectedMaterial, setSelectedMaterial] = useState<string>("All");
+
+  const resetGlobalFilters = () => {
+    setMaxPrice(2000);
+    setSelectedMaterial("All");
+  };
 
   useEffect(() => {
     localStorage.setItem("doqa_cloth_cart", JSON.stringify(cartItems));
@@ -253,6 +265,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateCartQuantity,
         removeFromCart,
         clearCart,
+        maxPrice,
+        setMaxPrice,
+        selectedMaterial,
+        setSelectedMaterial,
+        resetGlobalFilters,
       }}
     >
       {children}

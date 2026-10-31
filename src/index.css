@@ -56,6 +56,15 @@
   }
 }
 
+@keyframes drawerSlideLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 @keyframes pulseSubtle {
   0%, 100% {
     transform: scale(1);
@@ -87,6 +96,10 @@
 
 .animate-drawer-in {
   animation: drawerSlideRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-drawer-left {
+  animation: drawerSlideLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-pulse-subtle {

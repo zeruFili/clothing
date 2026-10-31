@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 import Icon from "./Icons";
@@ -18,10 +19,15 @@ export const WishlistDrawer: React.FC = () => {
 
   const wishlistedItems = items.filter((i) => wishlist.includes(i.id));
 
-  return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-xs animate-fade-in flex justify-end">
-      {/* Background click to close */}
-      <div className="fixed inset-0" onClick={closeWishlist} />
+  return typeof document !== "undefined"
+    ? createPortal(
+        <div
+          className="fixed inset-0 z-[9999] overflow-hidden bg-black/60 backdrop-blur-xs animate-fade-in flex justify-end"
+          role="dialog"
+          aria-modal="true"
+        >
+          {/* Background click to close */}
+          <div className="fixed inset-0" onClick={closeWishlist} />
 
       <div
         className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between animate-drawer-in z-10"
@@ -157,9 +163,11 @@ export const WishlistDrawer: React.FC = () => {
             </p>
           </div>
         )}
-      </div>
-    </div>
-  );
+        </div>
+      </div>,
+      document.body
+    )
+  : null;
 };
 
 export default WishlistDrawer;
