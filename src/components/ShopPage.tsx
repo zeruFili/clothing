@@ -25,12 +25,12 @@ export const ShopPage: React.FC = () => {
               Curated Haute Couture & Ready-to-Wear
             </h1>
 
-            <p className="text-xs sm:text-sm md:text-base text-emerald-100/85 leading-relaxed max-w-2xl font-light">
+            <p className="hidden md:block text-xs sm:text-sm md:text-base text-emerald-100/85 leading-relaxed max-w-2xl font-light">
               Sovereign runway silhouettes, archival evening gowns, Italian virgin wool tuxedos, and pure Mongolian cashmere coats. Every piece is crafted in limited batches, inspected by master tailors, and delivered in custom wooden presentation boxes.
             </p>
 
-            {/* Quick Filter Shortcuts */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-2">
+            {/* Quick Filter Shortcuts (Hidden on mobile viewports) */}
+            <div className="hidden md:flex flex-wrap items-center gap-2 sm:gap-2.5 pt-2">
               <button
                 onClick={() => {
                   setSelectedCategory("Evening Gowns & Gala Dresses");
