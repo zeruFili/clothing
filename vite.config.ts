@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 import path from 'node:path';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  base: process.env.BASE_PATH || (mode === 'production' ? '/clothing/' : '/'),
   plugins: [
     react(),
     tailwindcss(),
@@ -17,4 +18,4 @@ export default defineConfig({
   server: {
     port: 5174,
   },
-});
+}));
