@@ -227,10 +227,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, viewMode = "grid
       tabIndex={0}
       role="button"
       aria-label={`View details for ${item.name}`}
-      className="h-full bg-white rounded-2xl sm:rounded-3xl border border-gray-200 overflow-hidden shadow-2xs hover:shadow-xl hover:border-emerald-300/70 transition-all duration-300 flex flex-col group relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#123d32]/30"
+      className="h-full w-full min-w-0 bg-white rounded-xl sm:rounded-3xl border border-gray-200 overflow-hidden shadow-2xs hover:shadow-xl hover:border-emerald-300/70 transition-all duration-300 flex flex-col group relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#123d32]/30"
     >
       {/* Media Image Showcase */}
-      <div className="relative aspect-3/4 bg-gray-100 overflow-hidden block">
+      <div className="relative aspect-3/4 bg-gray-100 overflow-hidden block w-full shrink-0">
         <Link
           to={`/product/${item.id}`}
           className="block w-full h-full"
@@ -246,29 +246,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, viewMode = "grid
         </Link>
 
         {/* Top Badges */}
-        <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 flex flex-col gap-1.5 z-10 pointer-events-none max-w-[65%]">
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-white/95 backdrop-blur-xs text-gray-900 px-2.5 py-0.5 sm:py-0.8 rounded-full border border-gray-200 shadow-2xs self-start truncate">
+        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 flex flex-col gap-1 sm:gap-1.5 z-10 pointer-events-none max-w-[58%] sm:max-w-[65%]">
+          <span className="text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider bg-white/95 backdrop-blur-xs text-gray-900 px-1.5 sm:px-2.5 py-0.5 sm:py-0.8 rounded-full border border-gray-200 shadow-2xs self-start truncate max-w-full">
             {item.category.split("&")[0].trim()}
           </span>
 
           {hasSpecialOffer && item.discountPercentage && (
-            <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-black uppercase tracking-wider bg-rose-600 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md animate-pulse border border-rose-500/80 self-start">
-              <Icon name="tag" size={11} className="text-amber-300" />
+            <span className="inline-flex items-center gap-0.5 sm:gap-1 text-[8.5px] sm:text-[11px] font-black uppercase tracking-wider bg-rose-600 text-white px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-md animate-pulse border border-rose-500/80 self-start">
+              <Icon name="tag" size={10} className="text-amber-300 shrink-0" />
               <span>SAVE {item.discountPercentage}%</span>
             </span>
           )}
 
           {item.badge === "exclusive" && (
-            <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider bg-[#123d32] text-amber-300 px-2 sm:px-2.5 py-0.5 sm:py-0.8 rounded-full shadow-xs self-start">
+            <span className="text-[8px] sm:text-[10px] font-extrabold uppercase tracking-wider bg-[#123d32] text-amber-300 px-1.5 sm:px-2.5 py-0.5 sm:py-0.8 rounded-full shadow-xs self-start">
               Haute Edition
             </span>
           )}
         </div>
 
         {/* Top Right Stock Badge & Wishlist Action */}
-        <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 flex flex-col items-end gap-2 z-10">
+        <div className="absolute top-2 sm:top-3 right-2 sm:right-3 flex flex-col items-end gap-1.5 sm:gap-2 z-10">
           <span
-            className={`text-[9px] sm:text-[10px] font-extrabold uppercase px-2 sm:px-2.5 py-0.5 rounded-full border shadow-2xs pointer-events-none ${
+            className={`text-[8px] sm:text-[10px] font-extrabold uppercase px-1.5 sm:px-2.5 py-0.5 rounded-full border shadow-2xs pointer-events-none whitespace-nowrap ${
               isAvailable
                 ? isLowStock
                   ? "bg-amber-50 text-amber-800 border-amber-200"
@@ -278,130 +278,130 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, viewMode = "grid
           >
             {isAvailable
               ? isLowStock
-                ? `Only ${item.stockQuantity} Left`
+                ? `${item.stockQuantity} Left`
                 : "In Stock"
               : "Sold Out"}
           </span>
 
           <button
             onClick={handleWishlistClick}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-gray-700 hover:text-rose-600 transition-colors shadow-xs"
+            className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-gray-700 hover:text-rose-600 transition-colors shadow-xs active:scale-95"
             title="Save to Wishlist"
             aria-label="Save to Wishlist"
           >
             <Icon
               name="heart"
-              size={15}
+              size={13}
               className={isWishlisted ? "text-rose-600 fill-rose-600" : ""}
             />
           </button>
         </div>
 
         {/* Hover Quick Action Trigger Pills */}
-        <div className="absolute inset-x-2.5 sm:inset-x-3 bottom-2.5 sm:bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-10 flex gap-2">
+        <div className="absolute inset-x-2 sm:inset-x-3 bottom-2 sm:bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-10 flex gap-1.5 sm:gap-2">
           <button
             onClick={handleQuickViewClick}
-            className="flex-1 py-1.5 sm:py-2 bg-white/95 hover:bg-white text-gray-900 text-xs font-bold rounded-xl shadow-md backdrop-blur-xs flex items-center justify-center gap-1.5 transition-colors"
+            className="flex-1 py-1.5 sm:py-2 bg-white/95 hover:bg-white text-gray-900 text-[10px] sm:text-xs font-bold rounded-lg sm:rounded-xl shadow-md backdrop-blur-xs flex items-center justify-center gap-1 sm:gap-1.5 transition-colors"
           >
-            <Icon name="eye" size={14} className="text-emerald-800" />
-            <span>Quick View</span>
+            <Icon name="eye" size={13} className="text-emerald-800 shrink-0" />
+            <span className="truncate">Quick View</span>
           </button>
 
           {hasSpecialOffer ? (
             <button
               disabled={!isAvailable}
               onClick={handleClaimOffer}
-              className="px-3 sm:px-3.5 py-1.5 sm:py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center gap-1 transition-colors active:scale-95"
+              className="px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-rose-600 hover:bg-rose-700 text-white text-[10px] sm:text-xs font-bold rounded-lg sm:rounded-xl shadow-md flex items-center justify-center gap-1 transition-colors active:scale-95 shrink-0"
               title="Claim Special Offer"
             >
-              <Icon name="tag" size={13} className="text-amber-300" />
+              <Icon name="tag" size={11} className="text-amber-300 shrink-0" />
               <span className="hidden sm:inline">Claim</span>
             </button>
           ) : (
             <button
               disabled={!isAvailable}
               onClick={handleQuickAdd}
-              className="px-3 sm:px-3.5 py-1.5 sm:py-2 bg-[#123d32] hover:bg-[#0e2c24] text-white text-xs font-bold rounded-xl shadow-md flex items-center justify-center gap-1 transition-colors active:scale-95"
+              className="px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-[#123d32] hover:bg-[#0e2c24] text-white text-[10px] sm:text-xs font-bold rounded-lg sm:rounded-xl shadow-md flex items-center justify-center gap-1 transition-colors active:scale-95 shrink-0"
               title="Add to Shopping Bag"
             >
-              <Icon name="bag" size={13} className="text-amber-300" />
+              <Icon name="bag" size={11} className="text-amber-300 shrink-0" />
               <span className="hidden sm:inline">Add</span>
             </button>
           )}
         </div>
 
         {/* Location Depot Tag */}
-        <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 opacity-100 group-hover:opacity-0 transition-opacity pointer-events-none">
-          <span className="text-[9px] font-semibold bg-[#123d32]/90 text-white px-2 py-0.5 rounded-md backdrop-blur-xs flex items-center gap-1">
-            <Icon name="mapPin" size={9} />
+        <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 opacity-100 group-hover:opacity-0 transition-opacity pointer-events-none">
+          <span className="text-[8px] sm:text-[9px] font-semibold bg-[#123d32]/90 text-white px-1.5 sm:px-2 py-0.5 rounded-md backdrop-blur-xs flex items-center gap-1">
+            <Icon name="mapPin" size={8} />
             {item.boutiqueLocation.split(" ")[0]}
           </span>
         </div>
       </div>
 
       {/* Card Content Body */}
-      <div className="p-3.5 sm:p-5 flex-1 flex flex-col justify-between space-y-2.5 sm:space-y-3">
-        <div className="space-y-1 sm:space-y-1.5">
-          <div className="flex items-center justify-between text-[11px] text-gray-500 font-semibold">
-            <span className="truncate text-emerald-800 font-bold uppercase tracking-wider">
+      <div className="p-2.5 sm:p-5 flex-1 flex flex-col justify-between space-y-2 sm:space-y-3 min-w-0 w-full">
+        <div className="space-y-1 sm:space-y-1.5 min-w-0">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-gray-500 font-semibold gap-1 min-w-0">
+            <span className="truncate text-emerald-800 font-bold uppercase tracking-wider min-w-0">
               {item.designer}
             </span>
-            <span className="font-mono text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+            <span className="font-mono text-[8.5px] sm:text-[10px] text-gray-400 bg-gray-100 px-1 sm:px-1.5 py-0.5 rounded shrink-0">
               {item.code}
             </span>
           </div>
 
           <Link
             to={`/product/${item.id}`}
-            className="text-sm sm:text-base font-bold text-gray-950 group-hover:text-emerald-950 transition-colors line-clamp-1 font-display block leading-snug"
+            className="text-xs sm:text-base font-bold text-gray-950 group-hover:text-emerald-950 transition-colors line-clamp-1 font-display block leading-snug truncate"
           >
             {item.name}
           </Link>
 
-          <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed">
+          <p className="text-[11px] sm:text-xs text-gray-500 line-clamp-1 sm:line-clamp-2 leading-relaxed">
             {item.subtitle}
           </p>
 
           {/* Color Swatch Dots & Available Sizes */}
-          <div className="flex items-center justify-between pt-1">
-            <div className="flex items-center gap-1">
+          <div className="flex items-center justify-between pt-0.5 sm:pt-1 gap-1 min-w-0">
+            <div className="flex items-center gap-1 shrink-0">
               {item.colors.slice(0, 3).map((col) => (
                 <span
                   key={col.name}
-                  className="w-3 sm:w-3.5 h-3 sm:h-3.5 rounded-full border border-gray-300 shadow-2xs block"
+                  className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 rounded-full border border-gray-300 shadow-2xs block"
                   style={{ backgroundColor: col.hex }}
                   title={col.name}
                 />
               ))}
               {item.colors.length > 3 && (
-                <span className="text-[9px] text-gray-400 font-bold pl-0.5">
+                <span className="text-[8px] sm:text-[9px] text-gray-400 font-bold pl-0.5">
                   +{item.colors.length - 3}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-1 text-[10px] font-bold text-gray-400 uppercase">
-              {item.sizes.slice(0, 4).join(" • ")}
+            <div className="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase truncate text-right min-w-0">
+              {item.sizes.slice(0, 3).join(" • ")}
             </div>
           </div>
         </div>
 
         {/* Pricing Matrix & Call-to-action */}
-        <div className="pt-2.5 sm:pt-3 border-t border-gray-100 space-y-2 sm:space-y-2.5">
-          <div className="flex items-baseline justify-between gap-1">
-            <div className="flex items-baseline gap-1.5 sm:gap-2 flex-wrap">
-              <strong className="text-lg sm:text-2xl font-black text-[#123d32] font-display">
+        <div className="pt-2 sm:pt-3 border-t border-gray-100 space-y-1.5 sm:space-y-2.5 min-w-0">
+          <div className="flex items-baseline justify-between gap-1 flex-wrap min-w-0">
+            <div className="flex items-baseline gap-1 sm:gap-2 flex-wrap min-w-0">
+              <strong className="text-sm sm:text-2xl font-black text-[#123d32] font-display">
                 {formatPrice(item.price)}
               </strong>
               {item.compareAtPrice && (
-                <span className="text-xs sm:text-sm font-semibold text-gray-400 line-through">
+                <span className="text-[10px] sm:text-sm font-semibold text-gray-400 line-through">
                   {formatPrice(item.compareAtPrice)}
                 </span>
               )}
             </div>
 
-            <div className="text-right">
-              <span className="text-[9px] sm:text-[10px] text-emerald-800 font-bold">
+            <div className="text-right shrink-0">
+              <span className="text-[8px] sm:text-[10px] text-emerald-800 font-bold whitespace-nowrap">
                 Free Shipping
               </span>
             </div>
@@ -412,25 +412,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, viewMode = "grid
             <button
               disabled={!isAvailable}
               onClick={handleClaimOffer}
-              className="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm active:scale-98 disabled:opacity-50"
+              className="w-full py-2 sm:py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 shadow-xs active:scale-98 disabled:opacity-50 min-w-0"
               title="Claim Special Offer"
             >
-              <Icon name="tag" size={13} className="text-amber-300" />
-              <span>{isAvailable ? "Claim Special Offer" : "Offer Expired"}</span>
+              <Icon name="tag" size={11} className="text-amber-300 shrink-0" />
+              <span className="truncate">{isAvailable ? "Claim Offer" : "Expired"}</span>
             </button>
           ) : (
             <button
               disabled={!isAvailable}
               onClick={handleQuickAdd}
-              className="w-full py-2.5 bg-emerald-50 hover:bg-[#123d32] text-[#123d32] hover:text-white border border-emerald-200/80 hover:border-[#123d32] rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 group/btn disabled:opacity-50 active:scale-98"
+              className="w-full py-2 sm:py-2.5 bg-emerald-50 hover:bg-[#123d32] text-[#123d32] hover:text-white border border-emerald-200/80 hover:border-[#123d32] rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 group/btn disabled:opacity-50 active:scale-98 min-w-0"
               title="Add to Shopping Bag"
             >
               <Icon
                 name="bag"
-                size={13}
-                className="text-emerald-700 group-hover/btn:text-amber-300"
+                size={11}
+                className="text-emerald-700 group-hover/btn:text-amber-300 shrink-0"
               />
-              <span>{isAvailable ? "Add to Bag" : "Currently Sold Out"}</span>
+              <span className="truncate">{isAvailable ? "Add to Bag" : "Sold Out"}</span>
             </button>
           )}
         </div>

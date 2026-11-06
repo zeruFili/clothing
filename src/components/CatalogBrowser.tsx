@@ -833,7 +833,7 @@ export const CatalogBrowser: React.FC<CatalogBrowserProps> = ({
               </button>
             </div>
           ) : viewMode === "grid" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 w-full min-w-0">
               {pagedItems.map((item) => (
                 <ProductCard key={item.id} item={item} viewMode="grid" />
               ))}

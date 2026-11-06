@@ -134,3 +134,14 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
+
+/* Mobile 2-column grid peek support & overflow containment */
+@media (max-width: 639px) {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+

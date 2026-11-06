@@ -31,7 +31,7 @@ export function App() {
           <Header />
 
           {/* Main Content Area */}
-          <main className="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+          <main className="flex-1 max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-8 overflow-x-clip min-w-0">
             <Routes>
               <Route path="/" element={<ShopPage />} />
               <Route path="/new-arrivals" element={<NewArrivalsPage />} />
